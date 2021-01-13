@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>div highlight</title>
+    <style>
+        .container {
+            width: 700px;
+            height: 500px;
+            border: 2px solid lightseagreen;
+            margin: auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .box {
+            width: 200px;
+            height: 100px;
+            border: 2px solid rebeccapurple;
+            line-height: 100px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- highlight div in turn -->
+    <div class="container">
+        <div class="box"><span>highlight div in turn 1111</span></div>
+        <div class="box"><span>highlight div in turn 2222</span></div>
+        <div class="box"><span>highlight div in turn 3333</span></div>
+        <div class="box"><span>highlight div in turn 4444</span></div>
+        <div class="box"><span>highlight div in turn 5555</span></div>
+        <div class="box"><span>highlight div in turn 6666</span></div>
+        <div class="box"><span>highlight div in turn 7777</span></div>
+        <div class="box"><span>highlight div in turn 8888</span></div>
+        <div class="box"><span>highlight div in turn 9999</span></div>
+    </div>
+    <script>
+        console.log(11111)
+        const MS = 1000; // highlight how long
+
+        let boxs = document.querySelectorAll('.box')
+        let length = [...boxs].length / 3
+
+        function sortElementByIndex(acc, box, slicedAcc, incresedIndex) {
+            for (let [index, value] of Object.entries(slicedAcc)) {
+                    if(value === null) {
+                        // index 是字符串
+                        acc[+index + incresedIndex] = box
+                        return acc
+                    }
+                }  
+        }
+        // 调整 boxs 的结构， 让其竖着高亮显示
+        const columnBoxs = [...boxs].reduce((acc, box, index) => {
+            // 036 147 258
+            if (index % 3 === 0) {
+                // for (let [index, value] of Object.entries(acc.slice(0, length + 0))) {
+                //     if(value === null) {
+                //         acc[+index + 0] = box
+                //         return acc
+                //     }
+                // }
+                let slicedAcc = acc.slice(0, length + 0)
+                return acc = sortElementByIndex(acc, box, slicedAcc, 0)
+            }
+            if ((index - 1) % 3 === 0) {
+                // for (let [index, value] of Object.entries(acc.slice(3, length + 3))) {
+                //     if(value === null) { // 012 -- 345
+                //         acc[+index + 3] = box
+                //         return acc
+                //     }
+                // }
+                let slicedAcc = acc.slice(3, length + 3)
+                return acc = sortElementByIndex(acc, box, slicedAcc, 3)
+            }
+            if ((index + 1) % 3 === 0) {// 012 -- 678
+                // for (let [index, value] of Object.entries(acc.slice(6, length + 6))) {
+                //     if(value === null) {
+                //         acc[+index + 6] = box
+                //         return acc
+                //     }
+                // }
+                let slicedAcc = acc.slice(6, length + 6)
+                return acc = sortElementByIndex(acc, box,slicedAcc, 6)
+            }
+        }, new Array([...boxs].length).fill(null))
+        
+        // 更简单的写法
+        const anotherColumnBoxs = [
+            ...[...boxs].filter((box, index) => {
+                if (index % 3 === 0) return box
+            }),
+            ...[...boxs].filter((box, index) => {
+                if (index % 3 === 1) return box
+            }),
+            ...[...boxs].filter((box, index) => {
+                if (index % 3 === 2) return box
+            })
+        ]
+
+        console.log('boxs', Object.prototype.toString.call(boxs))
+        function highlightBox(boxs=columnBoxs) {
+            let next = 0
+            for (let box of boxs) {
+                if (box.style.backgroundColor == "black") {
+                    box.style.backgroundColor = ""
+                    box.style.color = ""
+                    let current = [...boxs].indexOf(box)
+                    if (current === [...boxs].length - 1) {
+                        next = 0
+                        // 让第一个 div 立即高亮
+                        Array.from(boxs)[next].style.backgroundColor = "black"
+                        Array.from(boxs)[next].style.color = "white"
+                        return;
+                    }
+                    next = current + 1
+                    console.log('current', current)
+                }
+            }
+
+            [...boxs][next].style.backgroundColor = "black"
+            Array.from(boxs)[next].style.color = "white"
+        }
+        
+        // setInterval(highlightBox, MS, boxs) // 横着高亮
+        setInterval(highlightBox, MS, anotherColumnBoxs) // 竖着高亮
+        // setInterval(highlightBox, MS) // 竖着高亮
+    </script>
+</body>
+</html>
