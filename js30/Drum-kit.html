@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 100%;
+            /* text-align: center; */
+        }
+        .child {
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            background-color: lightpink;
+            text-align: center;
+            line-height: 100px;
+            margin: 20px;
+            border: 3px solid black;
+            border-radius: 20px;
+            font-size: 30px;
+        }
+        .change {
+            font-size: 50px;
+            border-color: chocolate;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="child">A</div>
+        <div class="child">S</div>
+        <div class="child">D</div>
+        <div class="child">F</div>
+        <div class="child">G</div>
+        <div class="child">H</div>
+        <div class="child">J</div>
+        <div class="child">K</div>
+        <!-- <div class="child">L</div> -->
+    </div>
+    <script>
+        // let container = document.getElementById("container")
+        let children = document.querySelectorAll(".child")
+        console.log(children)
+        let keyType = {
+            keydown(elem) {elem.classList.add("change")},
+            keyup(elem) {elem.classList.remove("change")}
+        }
+
+        function handler(event) {
+           let key = event.key.toUpperCase()
+           children.forEach(child => {
+            //    if(child.innerHTML == key && event.type == "keydown") {
+            //        child.classList.add("change")
+            //    }
+            //    if(child.innerHTML == key && event.type == "keyup") {
+            //        child.classList.remove("change")
+            //    }
+              if(child.innerHTML == key) keyType[event.type](child)
+           })
+        }
+        window.addEventListener("keydown", handler)
+        window.addEventListener("keyup", handler)
+    </script>
+</body>
+</html>
