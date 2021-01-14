@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my jsonp</title>
+</head>
+<body>
+    <script>
+        // write a jsonp
+        function callbackShowNames(data) {
+            console.log(data)
+            let inputs = document.querySelectorAll('input')
+
+            Array.from(inputs).forEach((input, index) => {
+                input.value = Object.values(data)[index]
+            })
+        }
+
+        function jsonp(fn) {
+            let script = document.createElement('script')
+            script.src = `http://127.0.0.1:7777?random=${fn.name}`
+            document.querySelector('head').append(script)
+            console.log(1)
+        }
+
+        jsonp(callbackShowNames)
+        
+        let test = 1111 // 测试服务器返回值时浏览器是否会运行
+
+        setTimeout(() => {
+            console.log('test', test)
+            if (test !== 1111) {
+                console.log('test is changed by response data')
+                console.log('test', test)
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
