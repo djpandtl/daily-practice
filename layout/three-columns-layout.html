@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三栏布局</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container1 {
+            box-sizing: border-box;
+            padding: 20px;
+            /* 设置 BFC 撑起高度 */
+            overflow: hidden;
+        }
+        .left1 {
+            width: 300px;
+            min-height: 700px;
+            float: left;
+            margin-right: 30px;
+            background-color: lightgreen;
+        }
+        .main1 {
+            width: 500px;
+            float: left;
+            margin-right: 30px;
+            background-color: magenta;
+            min-height: 600px;
+        }
+        .right1 {
+            min-height: 500px;
+            /* 该方法下的2种写法 */
+            /* margin-left: 850px; */
+            float: left;
+            width: calc(100% - 300px - 500px - 60px);
+
+            background-color: lightseagreen;
+        }
+
+        .container2 {
+            padding: 20px;
+            position: relative;
+        }
+        .box {
+            position: absolute;
+            width: 400px;
+            background-color: olive;
+            min-height: 500px;
+        }
+        .left2 {
+            margin-right: 20px;
+        }
+        .main2 {
+            margin-left: 20px;
+            left: 420px;
+        }
+        .right2 {
+            left: 900px;
+        }
+        .content {
+            /* clear: both; */
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="container1">
+        <div class="left1"></div>
+        <div class="main1"></div>
+        <div class="right1"></div>
+    </div> -->
+    <div class="container2">
+        <div class="left2 box"></div>
+        <div class="main2 box"></div>
+        <div class="right2 box"></div>
+    </div>
+
+    <div class="content">
+        见踪影宽阳阳不见踪影宽阳阳不见踪影宽阳阳不见踪影宽阳阳不见踪影宽阳阳不
+        见踪影宽阳阳不见踪影宽阳阳不见踪影宽阳阳不见踪影宽阳阳不见踪影宽阳阳不
+        见踪影宽阳阳不见踪影宽阳阳不见踪影宽阳阳不见踪影宽阳阳不见踪影宽阳阳不
+    </div>
+</body>
+</html>
