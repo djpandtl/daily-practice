@@ -1,0 +1,235 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    background-color: rgba(0, 0, 0, 0);
+    padding: 10px 40px;
+}
+.nav {
+    /* width: 100vw; */
+    width: 100%;
+    height: 60px;
+    /* background-color: rgb(165, 179, 165); */
+    border-bottom: 3px solid lightslategrey;
+}
+.nav .nav-left {
+    width: 800px;
+    /* height: 50px; */
+    float: left;
+    /* border: 1px solid lightskyblue; */
+}
+.nav .nav-left ul {
+    /* display: flex; */
+    /* line-height: 80px; */
+    /* text-decoration: none; */
+}
+
+/* width 和 height 在 li 上面不起作用 */
+.nav .nav-left ul li {
+    display: inline-block;
+    /* width: 50px; */
+    /* height: 60px; */
+    /* line-height: 60px; */
+    margin-right: 30px;
+}
+.nav .nav-left ul li a {
+    display: inline-block;
+    /* width: 50px; */
+    /* height: 50px; */
+    list-style: none;
+    text-decoration: none;
+    color: #909090;
+    font-size: 20px;
+    /* line-height: 60px; */
+}
+.nav .nav-left ul li:first-child a{
+    width: auto;
+    height: 80px;
+    line-height: 60px;
+    color: #007fff;
+    font-size: 40px;
+}
+.nav .nav-left ul li:first-child a img {
+    line-height: 60;
+}
+.nav .nav-left ul li a:hover {
+    color: #007fff;
+}
+.nav .nav-left ul:first-child {
+    color: #007fff;
+}
+
+.nav .nav-right {
+    width: calc(100% - 850px);
+    /* margin-left: 100px; */
+    /* height: 50px; */
+    float: right;
+    /* border: 1px solid lightsalmon; */
+}
+.nav .nav-right ul {
+    display: flex;
+}
+.nav .nav-right ul li {
+    display: inline-block;
+    margin-right: 30px;
+}
+.nav .nav-right ul li form {
+    width: 150px;
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid #007fff;;
+    border-radius: 2px;
+    padding: 2px;
+    box-sizing: border-box;
+}
+.nav .nav-right ul li form input {
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    /* border-radius: 5px; */
+    border: none;
+    outline: none;
+    padding: 2px;
+}
+/* .nav .nav-right ul li form input:focus::placeholder {
+    color: red;
+    content: '搜索';
+} */
+.nav .nav-right ul li form i {
+    display: flex;
+}
+.nav .nav-right ul li a {
+    display: inline-block;
+    width: 70px;
+    height: 50px;
+    line-height: 50px;
+    text-decoration: none;
+    color: #909090;
+}
+.nav .nav-right ul li a:hover {
+    color: #007fff;
+}
+.nav .nav-right ul li img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.category {
+    width: 100%;
+    height: 50px;
+    background-color: magenta;
+    margin: 5px 0px ;
+}
+.category-list {
+    width: 100%;
+    height: 50px;
+    background-color: rgb(161, 133, 161);
+}
+
+.main {
+    margin-top: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.list {
+    width: 70%;
+    min-height: 500px;
+    background-color: palevioletred;
+    float: left;
+}
+.list .list-header {
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    border: 1px solid #909090;
+}
+.list .list-header ul {
+    /* display: flex; */
+    position: relative;
+}
+.list .list-header ul li {
+    display: inline-block;
+    line-height: 60px;
+    margin-right: 30px;
+}
+.list .list-header ul li a {
+    /* display: inline-block; */
+    text-decoration: none;
+    color: #909090;
+}
+.list .list-header ul li a:hover {
+    color: #007fff;
+}
+#days span::after{
+    /* content: '\e603'; */
+}
+.list .list-header ul li:last-child {
+    color: red;
+    /* position: absolute; */
+    /* left: -10px; */
+    margin-left: -20px;
+    width: 60px;
+    height: 25px;
+    border: 1px solid #909090 ;
+    line-height: 25px;
+    font-size: 13px;
+}
+
+.banner {
+   /* float: right;  */
+   /* width: calc(100% - 73%); */
+   margin-left: calc(70% + 30px);
+   background-color: peru;
+   min-height: 300px;
+}
+
+@font-face {
+    font-family: 'iconfont';
+    src: url('./download/iconfont.eot');
+    src: url('./download/iconfont.eot?#iefix') format('embedded-opentype'),
+        url('./download/iconfont.woff2') format('woff2'),
+        url('./download/iconfont.woff') format('woff'),
+        url('./download/iconfont.ttf') format('truetype'),
+        url('./download/iconfont.svg#iconfont') format('svg');
+  }
+  .iconfont {
+    font-family: "iconfont" !important;
+    font-size: 13px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+@font-face {
+    font-family: 'iconfont1';
+    src: url('./download/iconfont.eot');
+    src: url('./download/iconfont.eot?#iefix') format('embedded-opentype'),
+        url('./download/iconfont.woff2') format('woff2'),
+        url('./download/iconfont.woff') format('woff'),
+        url('./download/iconfont.ttf') format('truetype'),
+        url('./download/iconfont.svg#iconfont') format('svg');
+  }
+  .iconfont1 {
+    font-family: "iconfont1" !important;
+    font-size: 30px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+@font-face {
+    font-family: 'dd';
+    src: url('./download1/iconfont.eot');
+    src: url('./download1/iconfont.eot?#iefix') format('embedded-opentype'),
+        url('./download1/iconfont.woff2') format('woff2'),
+        url('./download1/iconfont.woff') format('woff'),
+        url('./download1/iconfont.ttf') format('truetype'),
+        url('./download1/iconfont.svg#iconfont') format('svg');
+  }
+  .dd {
+    font-family: "dd" !important;
+    font-size: 30px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
