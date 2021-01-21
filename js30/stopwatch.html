@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Stopwatch</title>
+    <style>
+        body {
+            background-color: #ffa600;
+            color: #fff;
+        }
+        .wrapper {
+            width: 80%;
+            height: 500px;
+            border: 1px solid #FFF;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h2,h3 {
+            font-family: "Roboto", sans-serif;
+            font-weight: 100;
+            font-size: 2.6em;
+            /* 将所有字母大写 */
+            text-transform: uppercase;
+        }
+        p {
+            color: #fff;
+            font-size: 2rem; 
+        }
+        p span {
+            /* transition: all 0.5s ease-in-out; */
+        }
+        button {
+            width: 150px;
+            height: 70px;
+            background-color: #ffa600;
+            text-align: center;
+            border: 1px solid #FFF;
+            border-radius: 10px;
+            margin-right: 20px;
+            color: #fff;
+            font-size: 1.5rem;
+            /*  重要，解决点击时产生黑框 */
+            outline: none;
+            /* 添加柔和的感觉... */
+            transition: all 0.5s ease-in-out;
+        }
+        button:hover {
+            background-color: #fff;
+            color: #ffa600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h2>Stopwatch</h2>
+        <h3>Vanilla JavaScript Stopwatch</h3>
+        <p>
+            <span>00</span> :
+            <span>00</span>
+        </p>
+        <div class="button-list">
+            <button>START</button>
+            <button>STOP</button>
+            <button>RESET</button>
+        </div>
+
+    </div>
+    <script>
+        const spans = document.querySelectorAll('span')
+        const firstSpan = spans[0]
+        const secondSpan = spans[1]
+        
+        let timers = []
+
+        function start() {           
+            // change seconds
+            let timer1 = setInterval(() => {
+                let currentValue = +firstSpan.innerText;
+                firstSpan.innerText = currentValue + 1
+            }, 1000)
+    
+            // change milliseconds
+            let timer2 = setInterval(() => {
+                let currentValue = +spans[1].innerText
+                if (currentValue === 99) {currentValue = 0}
+                // if (currentValue <= 9) {
+                //     spans[1].innerText = '0' + (currentValue + 1)
+                //     return
+                // }
+                spans[1].innerText =  currentValue + 1
+            }, 1000 / 100);
+
+            return [timer1, timer2]
+        }
+        
+        function stop(timers) {
+            if(timers.length === 0) return
+            timers.forEach(timer => clearInterval(timer))
+            // 清空数组 timers
+            timers.length = 0
+            console.log('timers', timers)
+        }
+        function reset(timers) {
+            // if(timers.length === 0) return
+            timers.forEach(timer => clearInterval(timer))
+            for (let span of spans) {
+                span.innerText = '00'
+            }
+            // 清空数组 timers
+            timers.length = 0
+        }
+
+        let buttons = document.querySelector('.button-list')
+        buttons.addEventListener('click', (event) => {
+            switch(event.target.innerText) {
+                case "START":
+                    // 防止重复点击
+                    console.log('timers', timers)
+                    if (timers.length !== 0) break;
+                    timers = start()
+                    // if(timers.length === 0) timers = clickTimers
+                    console.log('timers', timers)
+                    break;
+                case "STOP":
+                    stop(timers);
+                    break
+                case "RESET":
+                    reset(timers);
+                    break;
+            }
+        })
+   </script>
+</body>
+</html>
