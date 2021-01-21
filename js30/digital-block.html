@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字时钟</title>
+    <style>
+        body {
+            background-color: black;
+        }
+        #block {
+            color: #17D4FE;
+            font-size: 50px;
+            text-align: center;
+            font-family: Orbitron;
+            letter-spacing: 7px;
+            /* position: absolute; */
+            margin-top: 10%;
+            /* transform: translateY(-300%); */
+            
+        }
+    </style>
+</head>
+<body>
+    <div id="block">
+
+    </div>
+    <script>
+        function showTime() {
+            const date = new Date()
+
+            const hours = date.getHours()
+            const minutes = date.getMinutes()
+            const seconds = date.getSeconds()
+
+            const text = `${hours < 10 ? '0' + hours : hours} : 
+                          ${minutes < 10 ? '0' + minutes : minutes } :
+                          ${seconds < 10 ? '0' + seconds : seconds} 
+                          ${hours <= 12 ? 'AM' : 'PM'}`
+            // console.log(text)
+            // 需要清理空格和换行符
+
+            const block = document.getElementById('block')
+            // 需要清理空格和换行符，此处表现为 <br>
+            block.textContent = text
+
+            // 循环调用
+            setTimeout(showTime, 1000)
+
+            return text
+        }
+
+        const text = showTime()
+    </script>
+</body>
+</html>
