@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简洁计算器</title>
+    <style>
+        body {
+            background-color: white;
+            text-align: center;
+            line-height: 40px;
+        }
+        .calculator {
+            width: 380px;
+            box-sizing: border-box;
+            padding: 15px;
+            margin: 0 auto;
+            border: 1px solid  #ddd;
+            overflow: hidden;
+        }
+        .calculator:hover {
+            cursor: pointer;
+        }
+        .input {
+            width: 100%;
+            height: 60px;
+            border: 1px solid #ddd;
+            letter-spacing: 5px;
+            overflow-x: auto;
+        }
+        .operators {
+            width: 100%;
+            margin: 15px 0px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .operators div {
+            width: 23%;
+            height: 40px;
+            background-color: #ddd;
+        }
+        .operators div:last-child {
+            margin-right: 0;
+        }
+        .operators div:hover {
+            font-weight: bold;
+        }
+        .buttons {
+            width: 100%;
+        }
+        .leftPanel {
+            float: left;
+            width: calc(100% - 90px);
+            /* border: 1px solid #ddd; */
+            display: flex;
+            flex-direction: column;
+        }
+        .calu {
+            float: right;
+            margin-left: 10px;
+            width: 78px;
+            height: 212px;
+            border: 1px solid #ddd;
+            line-height: 212px;
+            background-color: #307CF9;
+        }
+        .calu:hover {
+            background-color: #307CF9;
+        }
+        .button-list {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .button-list div {
+            width: 30%;
+            height: 40px;
+            border: 1px solid #ddd;
+
+        }
+        .number-btn:active {
+            font-weight: bold;
+        }
+        .number-btn:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="input"></div>
+        <div class="operators">
+            <div>+</div>
+            <div>-</div>
+            <div>&times;</div>
+            <div>&divide;</div>
+        </div>
+        <div class="buttons">
+            <div class="leftPanel">
+                <div class="button-list">
+                    <div class="number-btn">1</div>
+                    <div class="number-btn">2</div>
+                    <div class="number-btn">3</div></div>
+                <div class="button-list">
+                    <div class="number-btn">4</div>
+                    <div class="number-btn">5</div>
+                    <div class="number-btn">6</div></div>
+                <div class="button-list">
+                    <div class="number-btn">7</div>
+                    <div class="number-btn">8</div>
+                    <div class="number-btn">9</div></div>
+                <div class="button-list">
+                    <div class="number-btn">0</div>
+                    <div class="number-btn">.</div>
+                    <div class="number-btn">C</div></div>
+            </div>
+            <div class="calu">=</div>
+        </div>
+    </div>
+    <script>
+        // 处理运算符
+        const cases = ['+', '-', "×", "÷"]
+
+        // 获取各元素
+        function getElement(selector) {
+            return document.querySelector(selector)
+        }
+
+        const operators = getElement('.operators')
+        const numbers = getElement('.leftPanel') // 包含 '.' 和 'C' 符号
+        const input = getElement('.input')
+        const calu = getElement('.calu')
+
+        function padInput(number) {
+            let inputCurrentValue = input.innerText
+
+            // 当值为空的时候， '.' 和 "C" 不能添加上去
+            if (inputCurrentValue === "" && (number === '.' || number === "C")) return
+
+            let splitedChars = splitInput(inputCurrentValue)
+            // 若最后一项含有小数点则返回
+            // 判断是否已经包含小数点
+            let hasPoint = splitedChars.slice(-1).join('').includes('.')
+            // 已经包含小数点且传入的仍然是小数点则返回
+            if(hasPoint && (number === '.')) return
+
+            input.innerText += number
+        }
+
+        let cacheChar = ''
+        function splitInput(inputCurrentValue) {
+            // 处理连续2个运算符和小数点的情况
+            // let inputCurrentValue = input.innerText
+            // 按照运算符拆开值
+            let splitedChars = []
+            let arrayFromInputValue = Array.from(inputCurrentValue)
+            arrayFromInputValue.forEach( (v, index) => {
+                if (!cases.includes(v)) { // 不为运算符的时候
+                    cacheChar += v
+                    if (index === arrayFromInputValue.length - 1) {
+                        splitedChars.push(cacheChar)
+                        cacheChar = ""
+                    }
+                    return
+                }
+                splitedChars.push(cacheChar)
+                splitedChars.push(v)
+                cacheChar = ""
+            })
+            console.log('splitedChars', splitedChars)
+            return splitedChars
+        }
+
+        // 处理点击数字的情况
+        function clickNumber(event) {
+            let number = event.target.innerText
+
+            // 莫名其妙，突然 target 等于 0123456789.C
+            number = number.slice(0,1)
+            console.log('number', number)
+            // 处理小数点如 '2..' 或 '2.2.3' 的情况
+            padInput(number)
+
+            // 当点击到 '=' 时，计算结果
+            // 需要处理最后一位不为数字的情况
+            // if(number === '=') {
+            //     calculateResult()
+            // }
+            // 清楚按钮 
+            if (number === "C") input.innerText = ""
+        }
+
+        function clickOperator(event) {
+            let inputCurrentValue = input.innerText
+            if (inputCurrentValue === "") return
+
+            // 判断当前最后一位是否为运算符，是 则替换为最新点击的运算符
+            let lastChar = inputCurrentValue.slice(-1)
+            if (cases.includes(lastChar)) { // 最后一位为运算符，替换它
+                inputCurrentValue = inputCurrentValue.slice(0, -1) + 
+                                    event.target.innerText
+                
+                // 先把 input 清空
+                input.innerText = ""
+                padInput(inputCurrentValue)
+                console.log('inputCurrentValue IF', inputCurrentValue)
+                return
+            }
+            console.log('inputCurrentValue', inputCurrentValue)
+            padInput(event.target.innerText)
+        }
+
+        const calculatorTwoNumbers = {
+            '+'(a, b) {return +a + +b },
+            '-'(a, b) {return +a - +b },
+            '÷'(a, b) {return +a / +b },
+            '×'(a, b) {return +a * +b },
+        }
+
+        function calculateResult() {
+            let inputCurrentValue = input.innerText
+            let splitedChars = splitInput(inputCurrentValue)
+            console.log('====', splitedChars)
+
+            // 优先处理乘除法
+           splitedChars.forEach( (v, i) => {
+                if(["×", "÷"].includes(v)) {
+                    // let result = calculatorTwoNumbers[v](splitedChars[i-1], splitedChars[i+1])
+                    // splitedChars[i+1] = result
+                    // splitedChars.splice(i-1, 2, null, null)
+                    calcuArray(v, i)
+                }
+           })
+           // 清除所有的 null
+           splitedChars = splitedChars.filter(v => v !== null)
+           // 处理加减法
+           splitedChars.forEach( (v, i) => {
+                if(["+", "-"].includes(v)) {
+                    // let result = calculatorTwoNumbers[v](splitedChars[i-1], splitedChars[i+1])
+                    // splitedChars[i+1] = result
+                    // splitedChars.splice(i-1, 2, null, null)
+                    // console.log(i)
+                    calcuArray(v, i)
+                }
+           })
+           // 解决重复
+           function calcuArray(v, i) {
+                let result = calculatorTwoNumbers[v](splitedChars[i-1], splitedChars[i+1])
+                splitedChars[i+1] = result
+                splitedChars.splice(i-1, 2, null, null)
+           }
+
+           console.log('-----', splitedChars) // [null, null, result]
+           input.innerText = ""
+           padInput(splitedChars.slice(-1)[0])
+        }
+
+        operators.addEventListener('click', clickOperator)
+        numbers.addEventListener('click', clickNumber)
+        calu.addEventListener('click', calculateResult)
+    </script>
+</body>
+</html>
