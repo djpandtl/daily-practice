@@ -4,9 +4,175 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guess color Game</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: black;
+        }
+        .title {
+            background-color: #2C8E99;
+            font-size: 1em;
+            padding-bottom: 15px;
+        }
+        .coloredDivs {
+            background-color: black;
+            /* border: 1px solid olive; */
+            width: 350px;
+            margin: 0 auto;
+        }
+        .child {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            
+            width: 100px;
+            height: 100px;
+            /* background-color: orchid; */
+        }
+        .child:hover {
+            cursor: pointer;
+        }
+        #buttons {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            margin-bottom: 30px;
+            background-color: white;
+        }
+        #buttons button {
+            width: 100px;
+            height: 40px;
+            text-decoration: none;
+        }
+        button:hover {
+            background-color: #2C8E99;
+        }
+        .button-clicked {
+            background-color: #2C8E99;
+        }
+        
+    </style>
 </head>
 <body>
-    <h2>Guess the right block by give RGB value</h2>
-    
+    <div class="title">
+        <h2>Guess the right block by give RGB value</h2>
+        <p>当前颜色16进制为：<span></span></p>
+    </div>
+    <div id="buttons">
+        <button>Refresh</button>
+        <button>Easy</button>
+        <button class="button-clicked">Hard</button>
+    </div>
+    <div class="coloredDivs">
+        
+    </div>
+    <script>
+        const parent = document.querySelector('.coloredDivs')
+
+        // 动态生成不同颜色的 div 快
+        function createDivs(num) {
+
+            for(let i = 0; i < num; i++) {
+                let div = document.createElement('div')
+                div.classList.add("child")
+                div.style.backgroundColor = getRandomColor()
+                parent.append(div)
+            }
+        }
+
+        // 随机颜色生成函数
+        function getRandomColor() {
+            // 0-9-a-f
+            const baseChar = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f"]
+            
+            let color = '#'
+            for (let i = 0; i < 6; i++) {
+                let n = Math.floor(Math.random() * (baseChar.length))
+                let key = baseChar[n]
+                color += key
+            }
+
+            return color
+        }
+
+        function chooseRandomDiv() {
+            let n = Math.floor(Math.random() * (parent.children.length))
+            let bgColor = Array.from(parent.children)[n].style.backgroundColor
+            
+            // 填充给 标题
+            const span = document.querySelector('p > span')
+            span.innerText = bgColor
+
+            return bgColor
+        }
+
+        let choosedColor = ""
+
+        function addBgColorOfButton(target) {
+            const buttons = document.getElementById('buttons')
+            // 选取 简单或者困难模式的按钮
+            const modeBtns = Array.from(buttons.children).slice(1)
+            modeBtns.forEach( btn => {
+                btn.classList.remove('button-clicked')
+                if (btn === target) {
+                    console.log('btn right')
+                    target.classList.add('button-clicked')
+                }
+            })
+        }
+
+        const buttons = document.getElementById('buttons')
+        // 记录当前 div 的个数，默认为9
+        let nums = 9
+
+        buttons.onclick = function(event) {
+            clearChildNode()
+            
+            if(event.target.innerText === "Refresh") {
+                createDivs(nums)
+            }
+            if(event.target.innerText === "Hard") {
+                nums = 9
+                createDivs(nums)
+                addBgColorOfButton(event.target)
+            }
+            if(event.target.innerText === "Easy") {
+                nums = 6
+                createDivs(nums)
+                addBgColorOfButton(event.target)
+            }
+            // 产生 div 后获取随意颜色
+            choosedColor = chooseRandomDiv()
+        }
+        
+        parent.onclick = function(event) {
+            // console.log(event.target.style.backgroundColor)
+            if (event.target.style.backgroundColor === choosedColor) {
+                console.log('rightrightrightright')
+                Array.from(parent.children).forEach(elem => {
+                    elem.style.backgroundColor = choosedColor
+
+                    // 改变顶部提示框的颜色
+                    document.querySelector('.title').style.backgroundColor = choosedColor
+                })
+                return
+            }
+            // console.log(1)
+            // 点击错误时让其消失
+            event.target.style.backgroundColor = 'black'
+        }
+
+        function clearChildNode() {
+            while(parent.firstChild) {
+                parent.removeChild(parent.firstChild)
+            }
+        }
+
+        // 初始化
+        createDivs(nums)
+        choosedColor = chooseRandomDiv()
+    </script>
 </body>
 </html>
