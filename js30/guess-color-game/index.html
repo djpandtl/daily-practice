@@ -52,12 +52,17 @@
         .button-clicked {
             background-color: #2C8E99;
         }
+        p span {
+            font-size: 30px;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+        }
         
     </style>
 </head>
 <body>
     <div class="title">
-        <h2>Guess the right block by give RGB value</h2>
+        <h2>Guess the right block by given RGB value</h2>
         <p>当前颜色16进制为：<span></span></p>
     </div>
     <div id="buttons">
@@ -129,7 +134,7 @@
 
         buttons.onclick = function(event) {
             clearChildNode()
-            
+
             if(event.target.innerText === "Refresh") {
                 createDivs(nums)
             }
