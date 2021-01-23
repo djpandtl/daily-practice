@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman</title>
+    <link rel="stylesheet" href="./hangman.css">
+</head>
+<body>
+  <header>
+    <h1>Hangman</h1>
+    <h2>Vanilla Hangman Game</h2>
+    <p>Use the alphabet below to guess the word, or click hint to get a clue.</p>
+  </header>
+  <div class="alphabet">
+    <!-- <div class="key">a</div> -->
+  </div>
+  <div class="wrapper">
+    <p id="catagoryName">The Chosen Category Is Films</p>
+    <div class="result">
+      <!-- <span>A</span>
+      <span>A</span>
+      <span>A</span>
+      <span>A</span> -->
+    </div>
+    <p id="mylives">You have <span id="lives">10</span> lives</p>
+    <p id="clue">Clue - </p>  
+    <canvas></canvas>
+    <div class="operator">
+      <div class="hint">Hint</div>
+      <div class="again">Play Again</div>
+    </div>
+  </div>
+
+  <!-- <canvas id="hangman"></canvas> -->
+  <!-- <script src="./hangman.js"></script> -->
+  <script src="./hangman.js">
+    const hangman = document.getElementById('hangman')
+    const ctx = hangman.getContext('2d')
+ 
+    function draw(x1=75, y1=100, x2=75, y2=50) {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    let i = 1
+    window.onkeydown = function() {
+      console.log(i)
+      
+      // 哈哈，很机械
+      if(i === 1) draw()
+      if(i === 2) draw(75, 50, 150, 50)
+      if(i === 3) draw(150, 50, 150, 100)
+      if(i === 4) draw(150, 100, 75, 100)
+      i++
+    }
+  </script>
+</body>
+</html>

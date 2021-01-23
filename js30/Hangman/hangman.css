@@ -1,0 +1,105 @@
+* {
+  padding:0px;
+  margin: 0px;
+}
+body {
+  background-color: #55693e;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+h1 {
+  font-size: 30px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+h2 {
+  font-size: 25px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+p {
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+.alphabet {
+  box-sizing: border-box;
+}
+.alphabet .key {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 3px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  background-color: white;
+  color:  #55693e;
+  margin: 8px;
+}
+.alphabet .key:hover {
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color:  #55693e;
+  color: white;
+  border: 1px solid white;
+  transition: all .5s ease-in-out;
+}
+.key-clicked {
+  background-color:  #b6beab;
+}
+
+.wrapper {
+  margin-top: 20px;
+}
+#catagoryName {
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+.result {
+  position: relative;
+  min-height: 20px;
+  margin-bottom: 15px;
+}
+.result span::after {
+  display: inline-block;
+  content: "";
+  width: 25px;
+  height: 2px;
+  background-color: white;
+  transform: translate(-80%, 7px );
+}
+.result span {
+  font-size: 25px;
+  margin: 5px;
+}
+
+#lives {
+  font-size: 40px;
+  color: crimson;
+}
+.operator {
+  margin-top: 10px;
+}
+.operator .hint, .again {
+  display: inline-block;
+  width: 150px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid white;
+  margin: 0 10px;
+  font-size: 25px;
+}
+.operator .hint:hover, .again:hover {
+  background-color: white;
+  color: #55693e;
+  transition: all .5s ease-in-out;
+  cursor: pointer;
+}
+
+canvas {
+  border: 2px dotted white;
+}
