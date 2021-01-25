@@ -1,0 +1,123 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+    position: relative;
+    height: 260px;
+    background-color: #F45B69;
+    color: white;
+}
+header .title {
+    width: 300px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+}
+ul {
+    background-color: #456990;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 190px;
+}
+
+ul li {
+    list-style: none;
+    width: 100%;
+    height: 200px;
+    display: block;
+    position: relative;
+}
+/* 中间的竖线 */
+ul li::before {
+    content: "";
+    width: 5px;
+    height: 200px;
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 圆 */
+ul li::after {
+    content:"";
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    bottom: 0%;
+    transform: translateX(-50%);
+    transition: background 1s ease-in-out;
+}
+/* 注意此处的用法 给 li 添加了一个 iin 的类名*/
+ul li.iin::after {
+    background-color: #F45B69 ;
+}
+
+time {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 2.5rem;
+}
+ul li div {
+    width: 30%;
+    position: absolute;
+    bottom: 0%;
+    left: 53%;
+    padding: 10px;
+    background-color: #F45B69;
+    color: white;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: all 1s ease-in-out;
+}
+
+ul li:nth-of-type(even) div {
+    left: 17%;
+}
+
+/* 添加 3D 动画 */
+ul li:nth-of-type(odd) div {
+    transform: translate3d(50px, 100px, 0);
+}
+ul li:nth-of-type(even) div {
+    transform: translate3d(-50px, -100px, 0);
+}
+
+ul li.in div {
+    visibility: visible;
+    opacity: 1;
+    transform: none; /* 清楚transform */
+}
+
+/* 制作三角形 */
+ul li:nth-of-type(even) div::before {
+    content: "";
+    border: 12px solid;
+    border-color: transparent transparent transparent #F45B69;;
+    position: absolute;
+    right: -24px;
+    bottom: 6px;
+}
+ul li:nth-of-type(odd) div::before {
+    content: "";
+    border: 12px solid;
+    border-color: transparent #F45B69 transparent transparent;
+    position: absolute;
+    left: -24px;
+    bottom: 6px;
+}
