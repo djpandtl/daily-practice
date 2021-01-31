@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>flex --- 圣杯布局</title>
+  <link rel="stylesheet" href="">
+  <style>
+    .container {
+      width: 100%;
+      height: 500px;
+      
+      display: flex;
+      flex-direction: column;
+
+      justify-content: space-around;
+
+      box-sizing: border-box;
+      padding: 10px;
+      /* background-color: lightgreen; */
+      border: 3px solid rgb(18, 221, 18);
+    }
+    header {
+      height: 100px;
+      background-color: lightsalmon;
+    }
+    main {
+      height: 300px;
+      
+
+      display: flex;
+      
+      justify-content: space-between;
+    }
+    main div:nth-child(odd) {
+      flex: 1 1 20%;
+      background-color: indigo;
+    }
+    main div:nth-child(even) {
+      flex: 1 4 40%;
+      background-color: lightseagreen;
+    }
+    footer {
+      height: 70px;
+      background-color: lightslategrey;
+    }
+    .t {
+      background-color: mediumorchid;
+    }
+    /* 圣杯布局  --- and 后面必须要有空格 草了*/
+    @media (max-width: 780px) {
+        main {
+          flex-direction: column;
+        }
+        main div:nth-child(3) {
+          /* height: 80px; */
+          background-color: rgb(90, 6, 52);
+        }
+      }
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header></header>
+    <main>
+      <div>one</div>
+      <div>two</div>
+      <div class='ddd'>three</div>
+    </main>
+    <footer></footer>
+    <!-- <footer class="t"></footer> -->
+  </div>
+</body>
+</html>
