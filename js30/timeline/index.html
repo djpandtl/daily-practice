@@ -86,7 +86,7 @@
                 // top -200 ~ 383 时显示
                 let o = li.getBoundingClientRect()
 
-                if (o.top > -180 && o.top < 390) {
+                if (o.top > -180 && o.top < window.innerHeight - 150) {
                     li.classList.add('iin')
                     li.classList.add('in')
                     return
