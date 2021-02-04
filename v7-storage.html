@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Storage</title>
+</head>
+<body>
+  <div id="app">
+    请输入信息：<input v-model='name'>
+    <p>
+      <button @click="persist">Save</button>
+    </p>
+
+    <!-- 本地存储多只猫 -->
+    请输入猫名：<input v-model='catName'>
+    <button @click='addCat'>Add Cats</button>
+
+    <div class="showCats" v-for='(cat, index) in cats'>
+      <span>{{ cat }}</span> --- <button @click="removeCat(index)">remove {{index}}</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js'
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        name: '',
+        catName: '',
+        cats: []
+      },
+      mounted() {
+        if(localStorage.cats) {
+          // 本地存储的数据会被修改，因此要
+          try {
+            this.cats = JSON.parse(localStorage.getItem('cats'))
+
+          } catch (err) {
+            console.log('err', err)
+          }
+        }
+      },
+      methods: {
+        persist() {
+          if(!this.name) return
+          localStorage.name = this.name
+          this.name = ''
+        },
+        addCat() {
+          if(!this.catName) { 
+            console.log('不要输入空') 
+            return
+          }
+
+          this.cats.push(this.catName)
+          this.catName = ''
+
+          localStorage.setItem('cats', JSON.stringify(this.cats))
+        },
+        removeCat(index) {
+          console.log('idnex', index)
+          this.cats.splice(index, 1)
+
+          localStorage.setItem('cats', JSON.stringify(this.cats))
+        }
+      },
+      watch: {
+        name: function(newName) {
+          // localStorage.name = this.name
+        }
+      }
+    })
+
+    window.app = app
+
+
+  </script>
+</body>
+</html>
