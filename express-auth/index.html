@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+<body>
+    <script>
+        const registerUrl = 'http://localhost:7474/api/register'
+        const loginUrl = 'http://localhost:7474/api/login'
+        const profileUrl = 'http://localhost:7474/api/profile'
+
+        const getApi = function(url) {
+           
+
+            const xhr = new XMLHttpRequest()
+
+            xhr.open('post', url)
+            // 
+            // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            
+            if(url.includes('profile')) {
+                xhr.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWQzZGE4MWI3Y2ZlMmJkODRjMTYzYyIsImlhdCI6MTYxMjUzMTg0NX0.zD_0uCDFFBo8yf-gzVEUc5CiCMFiiD7I9saFgpJlId0')
+            } else {
+                xhr.setRequestHeader('Content-Type', 'application/json')
+            }
+
+            xhr.onreadystatechange = function() {
+                if(this.readyState === 4 && this.status === 200){
+                    console.log(this.response)
+                }
+            }
+            // xhr.send(`user=1&password=3`)
+
+            const user = {
+                "username": "user3",
+                "password": "123456"
+            }
+            xhr.send(JSON.stringify(user))
+        }
+
+        // getApi(registerUrl)
+        // getApi(loginUrl)
+        getProfile(profileUrl)
+        function getProfile(url) {
+            const xhr = new XMLHttpRequest()
+
+            xhr.open('get', url)
+            xhr.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMWQzZGE4MWI3Y2ZlMmJkODRjMTYzYyIsImlhdCI6MTYxMjUzMzIyNH0.cuFu6H8iJJ3_qxoF9aFHmX20gzwtk1JLmEu7KO0nB5c')
+
+            xhr.onreadystatechange = function() {
+                if(this.readyState === 4 && this.status === 200) {
+                    console.log(this.response)
+                }
+            }
+
+            xhr.send()
+        }
+    </script>
+</body>
+</html>
